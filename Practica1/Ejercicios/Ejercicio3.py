@@ -85,23 +85,6 @@ class XML:
                     'Medal': row[14]
                 })
 
-        # Leer archivo CSV de participaciones
-        #participaciones = []
-        #with open('C:/DM2/ADAT/UD2/Practica_encriptacion/Ejercicios/athlete_events.csv', 'r') as file:
-            #reader = csv.reader(file)
-            #next(reader)  # Salltar header
-            #for row in reader:
-                #participaciones.append({
-                    #'DeportistaId': row[0],
-                    #'Sport': row[12],
-                    #'Age': row[3],
-                    #'NOC': row[7],
-                    #'Games': row[8],
-                    #'City': row[11],
-                    #'Event': row[13],
-                    #'Medal': row[14]
-                #})
-
         # Asignar participaciones a deportistas
         for participacion in participaciones:
             for deportista in deportistas:
@@ -160,4 +143,4 @@ class XML:
         print("Listado de olimpiadas mostrado correctamente")
 
 if __name__ == "__main__":
-    sistema_archivos = XML()
+    FicherosXML = XML()
