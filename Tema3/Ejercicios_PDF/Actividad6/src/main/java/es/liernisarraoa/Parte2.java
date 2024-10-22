@@ -17,10 +17,7 @@ public class Parte2 {
             resultados = resul;
             // Recorremos el resultado para visualizar cada fila
             // Se hace un bucle mientras haya registros, se van visualizando
-            while (resul.next()) {
-                System.out.println("Empleado con maximo salario:");
-                System.out.println(resul.getString(1) + " " + resul.getString(2));
-            }
+            salarioMaximo();
             resul.close();// Cerrar ResultSet
             sentencia.close();// Cerrar Statement
             conexion.close();//Cerrar conexión
@@ -32,8 +29,10 @@ public class Parte2 {
 
     public static void salarioMaximo() throws SQLException {
         while (resultados.next()) {
-            //if(resultados.get)
-
+            if(resultados.getFloat(2) > salarioMax){
+                salarioMax = resultados.getFloat(2);
+                apellidoEmp = resultados.getString(1);
+            }
         }
         System.out.println("Empleado con maximo salario:");
         System.out.println(apellidoEmp + " " + salarioMax);
