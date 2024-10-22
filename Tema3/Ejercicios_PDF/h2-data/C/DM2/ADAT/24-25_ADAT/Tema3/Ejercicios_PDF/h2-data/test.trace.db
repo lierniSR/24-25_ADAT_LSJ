@@ -1,0 +1,6 @@
+2024-10-21 06:50:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO empleados VALUES (1, 'SARRAOA', 'DESARROLLADOR, 2, '2024-10-21[*]', 300, 200, 10);"; SQL statement:
+INSERT INTO empleados VALUES (1, 'SARRAOA', 'DESARROLLADOR, 2, '2024-10-21', 300, 200, 10); [42000-195]
+2024-10-21 06:50:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "OFICIO VARCHAR(10)": "'DESARROLLADOR' (13)"; SQL statement:
+INSERT INTO empleados VALUES (1, 'SARRAOA', 'DESARROLLADOR', 2, '2024-10-21', 300, 200, 10) [22001-195]
