@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e69e3369-d637-4c0e-a7f8-d4edbc581b70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Actividad10_2/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Actividad10_2/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Actividad10_2/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Actividad10_2/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Actividad10_2/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Actividad10_2/src/main/java/es/liernisarraoa/Consola.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ejercicio1.db" beforeDir="false" afterPath="$PROJECT_DIR$/../ejercicio1.db" afterDir="false" />
-    </list>
+    <list default="true" id="e69e3369-d637-4c0e-a7f8-d4edbc581b70" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
