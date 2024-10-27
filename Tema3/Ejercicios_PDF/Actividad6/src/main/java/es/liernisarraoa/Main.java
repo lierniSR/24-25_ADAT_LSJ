@@ -5,7 +5,7 @@ public class Main {
         try {
         // Establecemos la conexión con la BD
             Connection conexion = DriverManager.getConnection
-                    ("jdbc:mysql://localhost/EJEMPLO", "root", "1234");
+                    ("jdbc:sqlite:/data/ejercicio1.db");
         // Preparamos la consulta
             Statement sentencia = conexion.createStatement();
             ResultSet resul = sentencia.executeQuery("SELECT apellido, oficio, salario FROM empleados WHERE dept_no = 10");
