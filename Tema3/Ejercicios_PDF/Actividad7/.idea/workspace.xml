@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94b2a1f2-9263-469a-b486-7ea1a950ba51" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Pantallazos1_4.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../Pantallazos1_4.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Ejercicio_Dentro_PDF_13/Ejercicio5/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Practica/PracticaUD3/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Practica/PracticaUD3/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Practica/PracticaUD3/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Practica/PracticaUD3/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Practica/PracticaUD3/src/main/java/es/liernisarraoa/Consola.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Practica/PracticaUD3/src/main/java/es/liernisarraoa/Dao/DaoCrearBBDD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Practica/PracticaUD3/src/main/java/es/liernisarraoa/Dao/DaoSentencias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Actividad8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Actividad8/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../~$ntallazos1_4.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +47,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/DM2/ADAT/24-25_ADAT/Tema3/Ejercicios_PDF/Actividad6",
+    "last_opened_file_path": "C:/DM2/ADAT/24-25_ADAT/Tema3/Ejercicios_PDF/Actividad7",
     "onboarding.tips.debug.path": "C:/DM2/ADAT/24-25_ADAT/Tema3/Ejercicios_PDF/Actividad6/src/main/java/es/liernisarraoa/Main.java",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
