@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13e160fd-413f-4f28-9f32-f3f23aad90d1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/src/main/java/es/liernisarraoa/Consola.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/src/main/java/es/liernisarraoa/DaoVentasMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Ejercicio7/src/main/java/es/liernisarraoa/DaoVentasSQLite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="13e160fd-413f-4f28-9f32-f3f23aad90d1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
