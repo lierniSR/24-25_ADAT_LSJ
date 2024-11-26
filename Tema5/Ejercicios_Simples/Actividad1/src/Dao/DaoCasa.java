@@ -3,6 +3,7 @@ package Dao;
 import Conexion.ConexionDB4O;
 import Entidades.Casa;
 import com.db4o.ObjectContainer;
+import com.db4o.query.Predicate;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -45,11 +46,7 @@ public class DaoCasa {
         ConexionDB4O.desconectar();
     }
 
-    static public void visualizarCasas(){
-        ObjectContainer db = ConexionDB4O.conectar();
-        Casa casa = new Casa();
-        List<Casa> casas = db.queryByExample(casa);
-
+    static public void visualizarCasas(List<Casa> casas){
         if(casas.isEmpty()){
             System.out.println("No se han encontrado casas.");
         } else {
@@ -57,6 +54,20 @@ public class DaoCasa {
                 System.out.println(c.toString());
             }
         }
+    }
+
+    static public void listarCasaHabita3(){
+        ObjectContainer db = ConexionDB4O.conectar();
+        List<Casa> casas = db.query(new Predicate<Casa>() {
+            @Override
+            public boolean match(Casa casa) {
+                return casa.getNumHabitaciones() > 3;
+            }
+        });
+
+        visualizarCasas(casas);
+
         ConexionDB4O.desconectar();
+
     }
 }
