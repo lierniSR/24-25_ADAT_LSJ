@@ -1,37 +1,28 @@
 package Entidades;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Casa {
-    public String nombre;
-    public String direccion;
-    public String poblacion;
-    public Integer CP;
-    public Integer numHabitaciones;
+    private String direccion;
+    private double numHabitaciones;
+    private double numPersonas;
+    private Ciudad ciudad;
+    private ArrayList<Huesped> arrHuesped;
 
-    public Casa(){}
+    // Constructor vacío
+    public Casa() {}
 
-    public Casa(String nombre, String direccion, String poblacion, Integer CP, Integer numHabitaciones){
-        this.nombre = nombre;
+    // Constructor con parámetros
+    public Casa( String direccion, double numHabitaciones, double numPersonas, Ciudad ciudad) {
         this.direccion = direccion;
-        this.poblacion = poblacion;
-        this.CP = CP;
         this.numHabitaciones = numHabitaciones;
+        this.numPersonas = numPersonas;
+        this.ciudad = ciudad;
+        this.arrHuesped=new ArrayList<Huesped>();
     }
 
-    public Integer getNumHabitaciones() {
-        return numHabitaciones;
-    }
 
-    public void setNumHabitaciones(Integer numHabitaciones) {
-        this.numHabitaciones = numHabitaciones;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public String getDireccion() {
         return direccion;
@@ -41,29 +32,73 @@ public class Casa {
         this.direccion = direccion;
     }
 
-    public String getPoblacion() {
-        return poblacion;
+    public Ciudad getCiudad() {
+        return this.ciudad;
     }
 
-    public void setPoblacion(String poblacion) {
-        this.poblacion = poblacion;
+
+
+    public double getNumHabitaciones() {
+        return numHabitaciones;
     }
 
-    public Integer getCP() {
-        return CP;
+    public void setNumHabitaciones(double numHabitaciones) {
+        this.numHabitaciones = numHabitaciones;
     }
 
-    public void setCP(Integer CP) {
-        this.CP = CP;
+    public double getNumPersonas() {
+        return numPersonas;
+    }
+
+    public void setNumPersonas(double numPersonas) {
+        this.numPersonas = numPersonas;
+    }
+
+    public void setHuesped(Huesped huesped) {
+        // TODO Auto-generated method stub
+        this.arrHuesped.add(huesped);
+    }
+
+    public void setCiudad(Ciudad ciudad) {
+        // TODO Auto-generated method stub
+        this.ciudad=ciudad;
+    }
+
+    public ArrayList<Huesped> getHuespeds(){
+        return this.arrHuesped;
+    }
+
+    public void setHuespeds(ArrayList<Huesped> arrHuesped){
+        this.arrHuesped=arrHuesped;
+    }
+
+    public void visualizar(){
+        System.out.println("***************Casa***************\n" +
+                "\tDireccion -> " + direccion + "\n" +
+                "\tNumero de habitaciones -> " + numHabitaciones + "\n" +
+                "\tNumero de personas -> " + numPersonas + "\n" +
+                "\tCiudad -> " + ciudad.getCiudad() + "\n" +
+                "\tHuespedes -> ");
+        int cont = 1;
+        for(Huesped huesped : arrHuesped){
+            System.out.println("\t\tHuesped " + cont + "\n" +
+                    "\t\t\tNombre -> " + huesped.getNombre() + "\n" +
+                    "\t\t\tEdad -> " + huesped.getEdad() + "\n" +
+                    "\t\t\tEmail -> " + huesped.getEmail() + "\n");
+            cont++;
+        }
     }
 
     @Override
-    public String toString() {
-        return "Casa --> \n" +
-                "\tNombre -> " + nombre + "\n" +
-                "\tDireccion -> " + direccion + "\n" +
-                "\tPoblacion -> " + poblacion + "\n" +
-                "\tCP -> " + CP + "\n" +
-                "\tNumero de habitaciones -> " + numHabitaciones + "\n";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Casa casa = (Casa) o;
+        return Objects.equals(direccion, casa.direccion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(direccion);
     }
 }
