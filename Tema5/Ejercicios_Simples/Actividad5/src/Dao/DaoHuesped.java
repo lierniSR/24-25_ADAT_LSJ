@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoCasa {
+public class DaoHuesped {
     static public void insertarDatos(){
         // Leer archivo CSV de batallas y ataques
         List<Casa> casas = new ArrayList<Casa>();
@@ -22,7 +22,7 @@ public class DaoCasa {
         Casa c;
         Ciudad ciudad;
         Huesped huesped;
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Simples\\Actividad3\\Ficheros\\Casas.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Simples\\Actividad5\\Ficheros\\Casas.csv"))) {
             System.out.println("Leyendo archivo CSV...");
             String linea;
             br.readLine(); // Saltar header
@@ -103,28 +103,44 @@ public class DaoCasa {
         ConexionDB4O.desconectar();
     }
 
-    static public void visualizarHuespedes(List<Huesped> huespedes){
+    static public void visualizarHuespedes(){
+        ObjectContainer db = ConexionDB4O.conectar();
+        List<Huesped> huespedes = db.queryByExample(new Huesped());
         if(huespedes.isEmpty()){
-            System.out.println("No se han encontrado huespedes mayor o igual a 30 años.");
+            System.out.println("No se han encontrado huespedes.");
         } else {
             for(Huesped h : huespedes){
                 System.out.println(h.toString());
             }
         }
+        ConexionDB4O.desconectar();
     }
 
-    static public void listarHuesped30(){
+    static public void visualizarHuesped(){
         ObjectContainer db = ConexionDB4O.conectar();
         List<Huesped> huespedes = db.query(new Predicate<Huesped>() {
             @Override
             public boolean match(Huesped huesped) {
-                return huesped.getEdad() >= 30;
+                return huesped.getNombre().equalsIgnoreCase("Carlos Perez");
             }
         });
-
-        visualizarHuespedes(huespedes);
-
+        if(huespedes.isEmpty()){
+            System.out.println("No se han encontrado huespedes.");
+        } else {
+            for(Huesped h : huespedes){
+                System.out.println(h.toString());
+            }
+        }
         ConexionDB4O.desconectar();
+    }
 
+    static public void actualizarCarlosPerez(){
+        ObjectContainer db = ConexionDB4O.conectar();
+        List<Huesped> huespedes = db.queryByExample(new Huesped());
+        for(Huesped huesped : huespedes){
+            huesped.setEmail("carlos.perez@gmail.com");
+            db.store(huesped);
+        }
+        ConexionDB4O.desconectar();
     }
 }

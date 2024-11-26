@@ -22,7 +22,7 @@ public class DaoCasa {
         Casa c;
         Ciudad ciudad;
         Huesped huesped;
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Simples\\Actividad1\\Ficheros\\Casas.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Simples\\Actividad4\\Ficheros\\Casas.csv"))) {
             System.out.println("Leyendo archivo CSV...");
             String linea;
             br.readLine(); // Saltar header
