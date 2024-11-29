@@ -22,7 +22,7 @@ public class DaoCasa {
         Casa c;
         Ciudad ciudad;
         Huesped huesped;
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Complejos\\Actividad4\\Ficheros\\Casas.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Complejos\\Actividad5\\Ficheros\\Casas.csv"))) {
             System.out.println("Leyendo archivo CSV...");
             String linea;
             br.readLine(); // Saltar header
@@ -109,43 +109,46 @@ public class DaoCasa {
         ConexionDB4O.desconectar();
     }
 
-    static public void actualizarNumPersonas(){
+    static public void actualizaCodigoPostal(){
         ObjectContainer db = ConexionDB4O.conectar();
         List<Casa> casas = db.query(new Predicate<Casa>() {
             @Override
             public boolean match(Casa casa) {
-                boolean edad50 = false;
+                boolean ana = false;
                 List<Huesped> huesped = casa.getHuespeds();
                 for(Huesped h : huesped){
-                    if(h.getEdad() > 50){
-                        edad50 = true;
+                    String[] partesNombre = h.getNombre().split(" ");
+                    if(partesNombre[0].equalsIgnoreCase("Ana")){
+                        ana = true;
                         break;
                     }
                 }
-                return edad50;
+                return ana;
             }
         });
         for(Casa c : casas){
-            c.setNumPersonas(8.0);
-            db.store(c);
+            Ciudad ciudad = c.getCiudad();
+            ciudad.setCodigoPostal("50001");
+            db.store(ciudad);
         }
         ConexionDB4O.desconectar();
     }
 
-    static public void visualizarCasasMayor50(){
+    static public void visualizarCasasAna(){
         ObjectContainer db = ConexionDB4O.conectar();
         List<Casa> casas = db.query(new Predicate<Casa>() {
             @Override
             public boolean match(Casa casa) {
-                boolean edad50 = false;
+                boolean ana = false;
                 List<Huesped> huesped = casa.getHuespeds();
                 for(Huesped h : huesped){
-                    if(h.getEdad() > 50){
-                        edad50 = true;
+                    String[] partesNombre = h.getNombre().split(" ");
+                    if(partesNombre[0].equalsIgnoreCase("Ana")){
+                        ana = true;
                         break;
                     }
                 }
-                return edad50;
+                return ana;
             }
         });
         if(casas.isEmpty()){
@@ -153,6 +156,8 @@ public class DaoCasa {
         } else {
             for(Casa c : casas){
                 c.visualizar();
+                System.out.println("*********CIUDAD*********");
+                System.out.println(c.getCiudad().toString());
             }
         }
         ConexionDB4O.desconectar();
