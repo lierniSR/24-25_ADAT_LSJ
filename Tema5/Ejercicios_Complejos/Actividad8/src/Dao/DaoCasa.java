@@ -22,7 +22,7 @@ public class DaoCasa {
         Casa c;
         Ciudad ciudad;
         Huesped huesped;
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Complejos\\Actividad7\\Ficheros\\Casas.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Complejos\\Actividad8\\Ficheros\\Casas.csv"))) {
             System.out.println("Leyendo archivo CSV...");
             String linea;
             br.readLine(); // Saltar header
@@ -128,12 +128,12 @@ public class DaoCasa {
         ConexionDB4O.desconectar();
     }
 
-    static public void visualizarValencia3(){
+    static public void visualizarBarcelona(){
         ObjectContainer db = ConexionDB4O.conectar();
         List<Casa> casas = db.query(new Predicate<Casa>() {
             @Override
             public boolean match(Casa casa) {
-                return casa.getCiudad().getCiudad().equalsIgnoreCase("Valencia");
+                return casa.getCiudad().getCiudad().equalsIgnoreCase("Barcelona");
             }
         });
         if(casas.isEmpty()){
@@ -146,20 +146,20 @@ public class DaoCasa {
         ConexionDB4O.desconectar();
     }
 
-    static public void eliminarHabitaciones3Valencia(){
+    static public void eliminarHuespedes(){
         ObjectContainer db = ConexionDB4O.conectar();
         List<Casa> casas = db.query(new Predicate<Casa>() {
             @Override
             public boolean match(Casa casa) {
-                return casa.getCiudad().getCiudad().equalsIgnoreCase("Valencia");
+                return casa.getCiudad().getCiudad().equalsIgnoreCase("Barcelona");
             }
         });
         for(Casa casa : casas){
-            if(casa.getNumHabitaciones() < 3){
-                db.delete(casa);
+            if(casa.getNumPersonas() > 6){
+                casa.setHuespeds(new ArrayList<Huesped>());
+                db.store(casa);
             }
         }
         ConexionDB4O.desconectar();
-
     }
 }
