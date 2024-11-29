@@ -22,7 +22,7 @@ public class DaoCasa {
         Casa c;
         Ciudad ciudad;
         Huesped huesped;
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Complejos\\Actividad2\\Ficheros\\Casas.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\DM2\\ADAT\\24-25_ADAT\\Tema5\\Ejercicios_Complejos\\Actividad3\\Ficheros\\Casas.csv"))) {
             System.out.println("Leyendo archivo CSV...");
             String linea;
             br.readLine(); // Saltar header
@@ -109,22 +109,27 @@ public class DaoCasa {
         ConexionDB4O.desconectar();
     }
 
-    static public void visualizarHuespeds(){
+    static public void visualizarDireccionCasa(){
         ObjectContainer db = ConexionDB4O.conectar();
         List<Casa> casas = db.query(new Predicate<Casa>() {
             @Override
             public boolean match(Casa casa) {
-                return casa.getNumHabitaciones() > 3 && casa.getCiudad().getCiudad().equals("Madrid");
+                boolean mayorEdad = false;
+                List<Huesped> huesped = casa.getHuespeds();
+                for(Huesped h : huesped){
+                    if(h.getEdad() < 25){
+                        mayorEdad = true;
+                        break;
+                    }
+                }
+                return mayorEdad;
             }
         });
         if(casas.isEmpty()){
             System.out.println("No se han encontrado casas.");
         } else {
             for(Casa c : casas){
-                List<Huesped> huespedes = c.getHuespeds();
-                for(Huesped huesped : huespedes){
-                    System.out.println(huesped.toString());
-                }
+                System.out.println("Direccion de la casa --> " + c.getDireccion() + "\n");
             }
         }
         ConexionDB4O.desconectar();
