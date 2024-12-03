@@ -87,4 +87,18 @@ public class Olimpiada {
     public int hashCode() {
         return Objects.hash(ID, nombre, anio, temporada, ciudad);
     }
+
+    public void visualizar(){
+        System.out.println("***********************\n" +
+                "Olimpiada --> \n" +
+                "\tID --> " + ID + "\n" +
+                "\tNombre --> " + nombre + "\n" +
+                "\tAño --> " + anio + "\n" +
+                "\tTemporada --> " + temporada + "\n" +
+                "\tCiudad --> " + ciudad + "\n");
+        for(Deporte deporte : this.deportes){
+            deporte.visualizar();
+        }
+        System.out.println("***********************\n");
+    }
 }

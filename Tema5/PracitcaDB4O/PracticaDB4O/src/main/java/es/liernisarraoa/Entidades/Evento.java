@@ -47,4 +47,14 @@ public class Evento {
     public int hashCode() {
         return Objects.hashCode(nombre);
     }
+
+    public void visualizar(){
+        System.out.println("***********************\n" +
+                "Evento --> \n" +
+                "\tNombre --> " + nombre + "\n");
+        for(Deportista deportista : this.participantes){
+            deportista.visualizar();
+        }
+        System.out.println("***********************\n");
+    }
 }

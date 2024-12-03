@@ -8,6 +8,8 @@ public class Deporte {
     private String nombre;
     private ArrayList<Evento> eventos;
 
+    private Integer ID = 1;
+
     public Deporte(){}
 
     public Deporte(String nombre){
@@ -46,5 +48,16 @@ public class Deporte {
     @Override
     public int hashCode() {
         return Objects.hashCode(nombre);
+    }
+
+    public void visualizar(){
+        System.out.println("***********************\n" +
+                "Deporte Nº " + this.ID + " --> \n" +
+                "\tNombre --> " + nombre + "\n");
+        for(Evento evento : this.eventos){
+            evento.visualizar();
+        }
+        System.out.println("***********************\n");
+        this.ID++;
     }
 }

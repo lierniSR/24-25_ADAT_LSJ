@@ -86,7 +86,7 @@ public class Deportista {
     @Override
     public String toString() {
         return "***********************\n" +
-                "Deportista --> " +
+                "Deportista --> \n" +
                 "\tNombre ->" + nombre + "\n" +
                 "\tSexo ->" + sexo + "\n" +
                 "\tEdad ->" + edad + "\n" +
@@ -94,5 +94,17 @@ public class Deportista {
                 "\tPeso ->" + peso + "\n" +
                 "\tMedalla ->" + medalla + "\n" +
                 "***********************\n";
+    }
+
+    public void visualizar(){
+        System.out.println("***********************\n" +
+                "Deportista --> \n" +
+                "\tNombre ->" + nombre + "\n" +
+                "\tSexo ->" + sexo + "\n" +
+                "\tEdad ->" + edad + "\n" +
+                "\tAltura ->" + altura + "\n" +
+                "\tPeso ->" + peso + "\n" +
+                "\tMedalla ->" + medalla + "\n" +
+                "***********************\n");
     }
 }
