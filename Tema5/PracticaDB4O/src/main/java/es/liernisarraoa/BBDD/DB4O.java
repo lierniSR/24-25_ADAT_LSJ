@@ -7,7 +7,7 @@ public class DB4O {
 
     private static ObjectContainer db;
 
-    public static ObjectContainer getConnection() {
+    public static ObjectContainer conexion() {
         if (db == null) {
             try {
                 // Configurar y abrir conexión a la base de datos db4o
@@ -20,7 +20,7 @@ public class DB4O {
         return db;
     }
 
-    public static void closeConnection() {
+    public static void cerrarConexion() {
         if (db != null) {
             db.close();
             System.out.println("Conexión a db4o cerrada");

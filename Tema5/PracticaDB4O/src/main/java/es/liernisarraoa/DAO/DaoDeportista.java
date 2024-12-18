@@ -3,7 +3,6 @@ package es.liernisarraoa.DAO;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
-import es.liernisarraoa.Entidades.Deporte;
 import es.liernisarraoa.Entidades.Deportista;
 
 import java.util.List;

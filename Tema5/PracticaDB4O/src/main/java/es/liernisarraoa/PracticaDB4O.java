@@ -8,7 +8,6 @@ import es.liernisarraoa.DAO.*;
 import es.liernisarraoa.Entidades.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,15 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class PracticaDB4O {
-    /**
-     * Cargar datos.
-     *
-     * @param ruta the ruta
-     * @param db   the db
-     */
+
     public static void cargarDatos(File ruta, ObjectContainer db) {
         try (CSVReader reader = new CSVReader(new FileReader(ruta))) {
             List<String[]> lineas = reader.readAll();
@@ -79,98 +71,100 @@ public class PracticaDB4O {
                     participacion = new Participacion(deportista, evento, equipo, i, linea[14]);
                 }
                 DaoDeporte.insertar(deporte, db);
+                System.out.println("Deporte insertado");
                 DaoDeportista.insertar(deportista, db);
+                System.out.println("Deportista insertado");
                 DaoEquipo.insertar(equipo, db);
+                System.out.println("Equipo insertado");
                 DaoEvento.insertar(evento, db);
+                System.out.println("Evento insertado");
                 DaoOlimpiada.insertar(olimpiada, db);
+                System.out.println("Olimpiada insertado");
                 DaoParticipacion.insertar(participacion, db);
+                System.out.println("Participacion insertado");
             }
         } catch (IOException | CsvException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Metodo que ejecuta el menu y sus diferentes opciones.
-     *
-     * @param args the arguments
-     */
     public static void main(String[] args) {
-        ObjectContainer db = DB4O.getConnection();
-        Scanner input = new Scanner(System.in);
+        ObjectContainer db = DB4O.conexion();
+        Scanner scanner = new Scanner(System.in);
         Deporte d = new Deporte();
         File f = null;
         try {
-            f = new File(d.getClass().getResource("/csv/athlete_events-sort.csv").toURI());
+            f = new File(d.getClass().getResource("/csv/athlete_events-cleaned.csv").toURI());
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         //Descomentar para cargar los datos
         //cargarDatos(f, db);
-        System.out.println("1:\tListado de deportistas participantes:");
-        System.out.println("2:\tModificar medalla deportista:");
-        System.out.println("3:\tAñadir deportista/participación::");
-        System.out.println("4:\tEliminar participación:");
-        System.out.println("0:\tSALIR:");
-        int respuesta = input.nextInt();
-        input.nextLine();
+        System.out.println("Por favor inserte el numero correspondido");
+        System.out.println("1 --> Listado de deportistas participantes:");
+        System.out.println("2 --> Modificar medalla deportista:");
+        System.out.println("3 --> Añadir deportista/participación::");
+        System.out.println("4 --> Eliminar participación:");
+        System.out.println("0 --> SALIR:");
+        int respuesta = scanner.nextInt();
+        scanner.nextLine();
         switch (respuesta) {
             case 1:
-                listar(input, db);
+                listar(scanner, db);
                 break;
             case 2:
-                modificarMdalla(db, input);
+                modificarMedalla(db, scanner);
                 break;
             case 3:
-                aniadirParticipacion(db, input);
+                aniadirParticipacion(db, scanner);
                 break;
             case 4:
-                eliminarParticipacion(db, input);
+                eliminarParticipacion(db, scanner);
                 break;
         }
         db.close();
     }
 
-    private static void eliminarParticipacion(ObjectContainer db, Scanner input) {
+    private static void eliminarParticipacion(ObjectContainer db, Scanner scanner) {
         int resp = 0;
         List<Deportista> deportistas = null;
         do {
-            System.out.println("Dime el nombre del deportista a buscar");
-            String nombre = input.nextLine();
+            System.out.println("Inserte el nombre del deportista:");
+            String nombre = scanner.nextLine();
             deportistas = DaoDeportista.conseguirPorFragmentoNombre(nombre, db);
             if (deportistas == null) {
-                System.out.println("ningun deportista coincide con el nombre insertado");
+                System.out.println("No se ha encontrado ningún deportista.");
 
             } else {
                 for (int i = 0; i < deportistas.size(); i++) {
                     System.out.println((i + 1) + " " + deportistas.get(i).getNombre());
                 }
-                resp = input.nextInt();
-                input.nextLine();
+                resp = scanner.nextInt();
+                scanner.nextLine();
             }
         } while (resp < 1 || resp > deportistas.size());
         Deportista deportista = deportistas.get(resp - 1);
         List<Participacion> participaciones = DaoParticipacion.conseguirPorDeportista(deportista, db);
         do {
-            System.out.println("Elige la participacion:");
+            System.out.println("Elige la participacion por número:");
             for (int i = 0; i < participaciones.size(); i++) {
                 System.out.println((i + 1) + " " + participaciones.get(i).getEvento().getNombre());
             }
-            resp = input.nextInt();
-            input.nextLine();
+            resp = scanner.nextInt();
+            scanner.nextLine();
         } while (resp < 1 || resp > participaciones.size());
         Participacion p = participaciones.get(resp - 1);
         DaoParticipacion.eliminar(deportista, p.getEvento(), db);
     }
 
-    private static void aniadirParticipacion(ObjectContainer db, Scanner input) {
+    private static void aniadirParticipacion(ObjectContainer db, Scanner scanner) {
         int resp = 0;
         List<Deportista> deportistas = null;
         boolean nuevo = false;
         Deportista deportista = null;
         do {
-            System.out.println("Dime el nombre del deportista a buscar");
-            String nombre = input.nextLine();
+            System.out.println("Inserte el nombre del deportista:");
+            String nombre = scanner.nextLine();
             deportistas = DaoDeportista.conseguirPorFragmentoNombre(nombre, db);
             if (deportistas == null) {
                 Deportista almacenarDeportista = new Deportista();
@@ -182,8 +176,8 @@ public class PracticaDB4O {
                 for (int i = 0; i < deportistas.size(); i++) {
                     System.out.println((i + 1) + " " + deportistas.get(i).getNombre());
                 }
-                resp = input.nextInt();
-                input.nextLine();
+                resp = scanner.nextInt();
+                scanner.nextLine();
             }
         } while (((resp < 1 || resp > deportistas.size()) && !nuevo));
         if (!nuevo) {
@@ -191,26 +185,26 @@ public class PracticaDB4O {
         }
         String temporada = "Summer";
         do {
-            System.out.println("Dime la temporada:\n1 Winter\n2 Summer");
-            resp = input.nextInt();
-            input.nextLine();
+            System.out.println("Elige el número de la temporada:\n1 Winter\n2 Summer");
+            resp = scanner.nextInt();
+            scanner.nextLine();
         } while (resp != 1 && resp != 2);
         if (resp == 1) {
             temporada = "Winter";
         }
         List<Olimpiada> olimpiadas = DaoOlimpiada.conseguirPorTemporada(temporada, db);
         do {
-            System.out.println("Elige la edición olímpica:");
+            System.out.println("Elige el número de la edición olímpica:");
             for (int i = 0; i < olimpiadas.size(); i++) {
                 System.out.println((i + 1) + " " + olimpiadas.get(i).getNombre());
             }
-            resp = input.nextInt();
-            input.nextLine();
+            resp = scanner.nextInt();
+            scanner.nextLine();
         } while (resp < 1 || resp > olimpiadas.size());
         Olimpiada olimpiada = olimpiadas.get(resp - 1);
         List<Evento> eventos = DaoEvento.conseguirPorOlimpiada(olimpiada, db);
         if (eventos.isEmpty()) {
-            System.out.println("No hay deportes en esa olimpiada");
+            System.out.println("No se han encontrado deportes en esa olimpiada");
         } else {
             ArrayList<Deporte> deportesDisponibles = new ArrayList<Deporte>();
             for (Evento e : eventos) {
@@ -219,12 +213,12 @@ public class PracticaDB4O {
                 }
             }
             do {
-                System.out.println("Elige el deporte");
+                System.out.println("Elige el número el deporte");
                 for (int i = 0; i < deportesDisponibles.size(); i++) {
                     System.out.println((i + 1) + " " + deportesDisponibles.get(i).getNombre());
                 }
-                resp = input.nextInt();
-                input.nextLine();
+                resp = scanner.nextInt();
+                scanner.nextLine();
             } while (resp < 1 || resp > deportesDisponibles.size());
             Deporte deporte = deportesDisponibles.get(resp - 1);
             List<Evento> eventosConFiltro =
@@ -234,30 +228,30 @@ public class PracticaDB4O {
                 for (int i = 0; i < eventosConFiltro.size(); i++) {
                     System.out.println((i + 1) + " " + eventosConFiltro.get(i).getNombre());
                 }
-                resp = input.nextInt();
-                input.nextLine();
+                resp = scanner.nextInt();
+                scanner.nextLine();
             } while (resp < 1 || resp > eventosConFiltro.size());
             Evento evento = eventosConFiltro.get(resp - 1);
             DaoParticipacion.insertar(new Participacion(deportista, evento, new Equipo("Baldur's Gate 3", "BG3"), 0, temporada), db);
         }
     }
 
-    private static void modificarMdalla(ObjectContainer db, Scanner input) {
+    private static void modificarMedalla(ObjectContainer db, Scanner scanner) {
         int resp = 0;
         List<Deportista> deportistas = null;
         do {
-            System.out.println("Dime el nombre del deportista a buscar");
-            String nombre = input.nextLine();
+            System.out.println("Inserte el nombre del deportista a buscar");
+            String nombre = scanner.nextLine();
             deportistas = DaoDeportista.conseguirPorFragmentoNombre(nombre, db);
             if (deportistas == null) {
-                System.out.println("ningun deportista coincide con el nombre insertado");
+                System.out.println("No se ha encontrado deportistas con el nombre insertado");
 
             } else {
                 for (int i = 0; i < deportistas.size(); i++) {
                     System.out.println((i + 1) + " " + deportistas.get(i).getNombre());
                 }
-                resp = input.nextInt();
-                input.nextLine();
+                resp = scanner.nextInt();
+                scanner.nextLine();
             }
         } while (resp < 1 || resp > deportistas.size());
         Deportista deportista = deportistas.get(resp - 1);
@@ -273,15 +267,15 @@ public class PracticaDB4O {
             for (int i = 0; i < eventos.size(); i++) {
                 System.out.println((i + 1) + " " + eventos.get(i).getNombre());
             }
-            resp = input.nextInt();
-            input.nextLine();
+            resp = scanner.nextInt();
+            scanner.nextLine();
         } while (resp < 1 || resp > eventos.size());
         Evento e = eventos.get(resp - 1);
         do {
-            System.out.println("Dime que medalla quieres poner");
+            System.out.println("Elige el número de la medalla elegida.");
             System.out.println("1 Gold\n2 Silver\n3 Bronze\n4 NA");
-            resp = input.nextInt();
-            input.nextLine();
+            resp = scanner.nextInt();
+            scanner.nextLine();
         } while (resp < 1 || resp > 4);
         String medalla = "NA";
         switch (resp) {
@@ -298,25 +292,25 @@ public class PracticaDB4O {
         DaoParticipacion.actualizarMedallas(medalla, deportista, e, db);
     }
 
-    private static void listar(Scanner input, ObjectContainer db) {
+    private static void listar(Scanner scanner, ObjectContainer db) {
         int resp = 0;
         String temporada = "Summer";
         do {
-            System.out.println("Dime la temporada:\n1 Winter\n2 Summer");
-            resp = input.nextInt();
-            input.nextLine();
+            System.out.println("Elige el número de la temporada:\n1 Winter\n2 Summer");
+            resp = scanner.nextInt();
+            scanner.nextLine();
         } while (resp != 1 && resp != 2);
         if (resp == 1) {
             temporada = "Winter";
         }
         List<Olimpiada> olimpiadas = DaoOlimpiada.conseguirPorTemporada(temporada, db);
         do {
-            System.out.println("Elige la edición olímpica:");
+            System.out.println("Elige el número de la edición olímpica:");
             for (int i = 0; i < olimpiadas.size(); i++) {
                 System.out.println((i + 1) + " " + olimpiadas.get(i).getNombre());
             }
-            resp = input.nextInt();
-            input.nextLine();
+            resp = scanner.nextInt();
+            scanner.nextLine();
         } while (resp < 1 || resp > olimpiadas.size());
         Olimpiada olimpiada = olimpiadas.get(resp - 1);
         List<Evento> eventos = DaoEvento.conseguirPorOlimpiada(olimpiada, db);
@@ -330,23 +324,23 @@ public class PracticaDB4O {
                 }
             }
             do {
-                System.out.println("Elige el deporte");
+                System.out.println("Elige el número del deporte");
                 for (int i = 0; i < deportesDisponibles.size(); i++) {
                     System.out.println((i + 1) + " " + deportesDisponibles.get(i).getNombre());
                 }
-                resp = input.nextInt();
-                input.nextLine();
+                resp = scanner.nextInt();
+                scanner.nextLine();
             } while (resp < 1 || resp > deportesDisponibles.size());
             Deporte deporte = deportesDisponibles.get(resp - 1);
             List<Evento> eventosConFiltro =
                     DaoEvento.conseguirPorOlimpiadaDeporte(olimpiada, deporte, db);
             do {
-                System.out.println("Elige el evento");
+                System.out.println("Elige el número del evento");
                 for (int i = 0; i < eventosConFiltro.size(); i++) {
                     System.out.println((i + 1) + " " + eventosConFiltro.get(i).getNombre());
                 }
-                resp = input.nextInt();
-                input.nextLine();
+                resp = scanner.nextInt();
+                scanner.nextLine();
             } while (resp < 1 || resp > eventosConFiltro.size());
             Evento evento = eventosConFiltro.get(resp - 1);
             List<Participacion> participaciones =
@@ -361,10 +355,10 @@ public class PracticaDB4O {
                 Deportista dep = deportistas.get(i);
                 Participacion par =
                         DaoParticipacion.conseguirPorDeportistaEvento(dep, evento, db);
-                System.out.println("Nombre: " + dep.getNombre() + ", Altura: " +
-                        dep.getAltura() + ", Peso: " + dep.getPeso() + ", Edad: " +
-                        par.getEdad() + ", Equipo: " + par.getEquipo().getNombre() +
-                        ", Medalla: " + par.getMedalla());
+                System.out.println("Nombre: " + dep.getNombre() + "\n Altura: " +
+                        dep.getAltura() + "\n Peso: " + dep.getPeso() + "\n Edad: " +
+                        par.getEdad() + "\n Equipo: " + par.getEquipo().getNombre() +
+                        "\n Medalla: " + par.getMedalla());
             }
         }
 
